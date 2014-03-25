@@ -56,12 +56,19 @@ public class MyLevel extends Level{
 	        while (length < width - 64)
 	        {
 	            //length += buildZone(length, width - length);
+				
+				/*
 				length += buildStraight(length, width-length, false);
 				length += buildStraight(length, width-length, false);
 				length += buildHillStraight(length, width-length);
 				length += buildJump(length, width-length);
 				length += buildTubes(length, width-length);
 				length += buildCannons(length, width-length);
+				*/
+				//length += buildJump(length, width-length);
+				//length += buildTubes(length, width-length);
+				
+				length += buildFreeStandingTubes(length, width-length);
 	        }
 
 	        //set the end piece
@@ -305,6 +312,52 @@ public class MyLevel extends Level{
 	        }
 	    }
 
+		private int buildFreeStandingTubes(int xo, int maxLength)
+	    {
+	        int length = random.nextInt(10) + 5;
+	        if (length > maxLength) length = maxLength;
+
+	        int floor = height - 1 - random.nextInt(4);
+	        int xTube = xo + 1 + random.nextInt(4);
+	        int tubeHeight = floor - random.nextInt(2) - 1; // -2
+	        for (int x = xo; x < xo + length; x++)
+	        {
+	            if (x > xTube + 1)
+	            {
+	                xTube += 3 + random.nextInt(4);
+	                tubeHeight = floor - random.nextInt(2) - 1; // -2
+	            }
+	            if (xTube >= xo + length - 2) xTube += 10;
+
+	            if (x == xTube && random.nextInt(11) < difficulty + 1)
+	            {
+	                setSpriteTemplate(x, tubeHeight, new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
+	                ENEMIES++;
+	            }
+
+	            for (int y = 0; y < height; y++)
+	            {
+					if ((x == xTube || x == xTube + 1) && y >= tubeHeight)
+					{
+						int xPic = 10 + x - xTube;
+
+						if (y == tubeHeight)
+						{
+							//tube top
+							setBlock(x, y, (byte) (xPic + 0 * 16));
+						}
+						else
+						{
+							//tube side
+							setBlock(x, y, (byte) (xPic + 1 * 16));
+						}
+					}
+	            }
+	        }
+
+	        return length;
+	    }
+		
 	    private int buildTubes(int xo, int maxLength)
 	    {
 	        int length = random.nextInt(10) + 5;
@@ -332,7 +385,7 @@ public class MyLevel extends Level{
 	            {
 	                if (y >= floor)
 	                {
-	                    setBlock(x, y,GROUND);
+	                   setBlock(x, y,GROUND);
 
 	                }
 	                else
