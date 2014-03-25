@@ -315,10 +315,12 @@ public class MyLevel extends Level{
 		private int buildFreeStandingTubes(int xo, int maxLength)
 	    {
 	        int length = random.nextInt(10) + 5;
+			//int length = random.nextInt(20);
 	        if (length > maxLength) length = maxLength;
 
 	        int floor = height - 1 - random.nextInt(4);
-	        int xTube = xo + 1 + random.nextInt(4);
+	        //int xTube = xo + 1 + random.nextInt(4);
+			int xTube = xo + 1;
 	        int tubeHeight = floor - random.nextInt(2) - 1; // -2
 	        for (int x = xo; x < xo + length; x++)
 	        {
@@ -327,8 +329,8 @@ public class MyLevel extends Level{
 	                xTube += 3 + random.nextInt(4);
 	                tubeHeight = floor - random.nextInt(2) - 1; // -2
 	            }
-	            if (xTube >= xo + length - 2) xTube += 10;
-
+	            if (xTube >= xo + length - 2) xTube += 1; //xTube += 10
+				
 	            if (x == xTube && random.nextInt(11) < difficulty + 1)
 	            {
 	                setSpriteTemplate(x, tubeHeight, new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
