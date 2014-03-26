@@ -83,6 +83,20 @@ public class MyLevel extends Level{
 						length += buildTubes(length, width-length);
 						break;
 					}
+					default:
+					{
+						length += buildCannons(length, width-length);
+						length += buildHillStraight(length, width-length);
+						length += buildCannons(length, width-length);
+						length += buildJump(length, width-length);
+						length += buildCannons(length, width-length);
+						length += buildTubes(length, width-length);
+						length += buildCannons(length, width-length);
+						length += buildJump(length, width-length);
+						length += buildCannons(length, width-length);
+						length += buildTubes(length, width-length);
+						length += buildCannons(length, width-length);
+					}
 				}
 	        }
 
@@ -318,20 +332,16 @@ public class MyLevel extends Level{
 					{
 						break;
 					}
-					case 3:
+					default:
 					{
 						if (random.nextInt(35) < difficulty + 1)
 						{
 							int type = random.nextInt(4);
-
-							if (difficulty < 1)
-							{
-								type = Enemy.ENEMY_GOOMBA;
-							}
-							else if (difficulty < 3)
-							{
 								type = random.nextInt(3);
-							}
+							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
+							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
+							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
+							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
 							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
 							ENEMIES++;
 						}
@@ -522,6 +532,51 @@ public class MyLevel extends Level{
 						}
 					}
 				}
+				default:
+				{
+					length = random.nextInt(10) + 5;
+					if (length > maxLength) length = maxLength;
+
+					int floor = height - 1 - random.nextInt(4);
+					int xTube = xo + 1 + random.nextInt(4);
+					int tubeHeight = floor - random.nextInt(2) - 2;
+					for (int x = xo; x < xo + length; x++)
+					{
+						if (x > xTube + 1)
+						{
+							xTube += 3 + random.nextInt(4);
+							tubeHeight = floor - random.nextInt(2) - 2;
+						}
+						if (xTube >= xo + length - 2) xTube += 10;
+
+						for (int y = 0; y < height; y++)
+						{
+							if (y >= floor)
+							{
+							   setBlock(x, y,GROUND);
+
+							}
+							else
+							{
+								if ((x == xTube || x == xTube + 1) && y >= tubeHeight)
+								{
+									int xPic = 10 + x - xTube;
+
+									if (y == tubeHeight)
+									{
+										//tube top
+										setBlock(x, y, (byte) (xPic + 0 * 16));
+									}
+									else
+									{
+										//tube side
+										setBlock(x, y, (byte) (xPic + 1 * 16));
+									}
+								}
+							}
+						}
+					}
+				}	
 			}
 	        return length;
 	    }
