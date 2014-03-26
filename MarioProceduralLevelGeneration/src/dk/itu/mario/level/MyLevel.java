@@ -27,7 +27,8 @@ public class MyLevel extends Level{
 	    private int difficulty;
 	    private int type;
 		private int gaps;
-		int rule = 2;
+		int rule = 1;
+		GamePlay playerMetrics;
 		
 		public MyLevel(int width, int height)
 	    {
@@ -38,6 +39,7 @@ public class MyLevel extends Level{
 		public MyLevel(int width, int height, long seed, int difficulty, int type, GamePlay playerMetrics)
 	    {
 	        this(width, height);
+			this.playerMetrics = playerMetrics;
 	        creat(seed, difficulty, type);
 	    }
 
@@ -52,6 +54,27 @@ public class MyLevel extends Level{
 	        //create the start location
 	        int length = 0;
 	        length += buildStraight(0, width, true);
+			
+			// Simple rule based system using different statistical measurements to select the appropriate level type
+			// for the player
+			double deaths = playerMetrics.timesOfDeathByRedTurtle;
+			deaths += playerMetrics.timesOfDeathByGoomba;
+			deaths += playerMetrics.timesOfDeathByGreenTurtle;
+			deaths += playerMetrics.timesOfDeathByArmoredTurtle;
+			deaths += playerMetrics.timesOfDeathByJumpFlower;
+			deaths += playerMetrics.timesOfDeathByCannonBall;
+			deaths += playerMetrics.timesOfDeathByChompFlower;
+			
+			double jumps = 1.0 * (playerMetrics.aimlessJumps / playerMetrics.jumpsNumber);
+			
+			if(deaths > 1 && jumps < .5)
+			{
+				rule = 1;
+			}
+			else if(jumps >= .5) 
+			{
+				rule = 2;
+			}
 
 	        //create all of the medium sections
 	        while (length < width - 64)
@@ -72,15 +95,15 @@ public class MyLevel extends Level{
 				{
 					case 1:
 					{
-						length += buildFreeStandingTubes(length, width-length);
-						length += buildBlockJumps(length, width-length);
+						length += buildStraight(length, width-length, false);
+						length += buildHillStraight(length, width-length);
+						length += buildTubes(length, width-length);
 						break;
 					}
 					case 2:
 					{
-						length += buildStraight(length, width-length, false);
-						length += buildHillStraight(length, width-length);
-						length += buildTubes(length, width-length);
+						length += buildFreeStandingTubes(length, width-length);
+						length += buildBlockJumps(length, width-length);
 						break;
 					}
 				}
@@ -345,18 +368,18 @@ public class MyLevel extends Level{
 	        if (length > maxLength) length = maxLength;
 
 	        int floor = height - 1 - random.nextInt(4);
-			int xBlock = xo + 1;
-			int blockHeight = floor - random.nextInt(3) - 1; // -2
+			int xBlock = xo;
+			int blockHeight = floor - random.nextInt(2) - 1; // -2
 			
 			for (int x = xo; x < xo + length; x++)
 	        {
 	            if (x > xBlock + 1)
 	            {
-	                xBlock += 2 + random.nextInt(2);
-	                blockHeight = floor - random.nextInt(3) - 1; // -2
+	                xBlock += 1 + random.nextInt(2);
+	                blockHeight = floor - random.nextInt(2) - 1; // -2
 	            }
 				
-	            if (xBlock >= xo + length - 2) xBlock += 1;
+	            //if (xBlock >= xo + length - 2) xBlock += 1;
 				
 	            for (int y = 0; y < height; y++)
 	            {
