@@ -73,6 +73,7 @@ public class MyLevel extends Level{
 					case 1:
 					{
 						length += buildFreeStandingTubes(length, width-length);
+						length += buildBlockJumps(length, width-length);
 						break;
 					}
 					case 2:
@@ -80,6 +81,7 @@ public class MyLevel extends Level{
 						length += buildStraight(length, width-length, false);
 						length += buildHillStraight(length, width-length);
 						length += buildTubes(length, width-length);
+						break;
 					}
 				}
 	        }
@@ -337,6 +339,38 @@ public class MyLevel extends Level{
 				}
 			}
 	    }
+
+		private int buildBlockJumps(int xo, int maxLength) {
+			int length = random.nextInt(10) + 5;
+	        if (length > maxLength) length = maxLength;
+
+	        int floor = height - 1 - random.nextInt(4);
+			int xBlock = xo + 1;
+			int blockHeight = floor - random.nextInt(3) - 1; // -2
+			
+			for (int x = xo; x < xo + length; x++)
+	        {
+	            if (x > xBlock + 1)
+	            {
+	                xBlock += 2 + random.nextInt(2);
+	                blockHeight = floor - random.nextInt(3) - 1; // -2
+	            }
+				
+	            if (xBlock >= xo + length - 2) xBlock += 1;
+				
+	            for (int y = 0; y < height; y++)
+	            {
+					if ((x == xBlock) && y >= blockHeight)
+					{
+						if (y == blockHeight)
+						{
+							setBlock(x, y, BLOCK_EMPTY);
+						}
+					}
+	            }
+	        }
+			return length;
+		}
 
 		private int buildFreeStandingTubes(int xo, int maxLength)
 	    {
