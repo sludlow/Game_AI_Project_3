@@ -123,6 +123,8 @@ public class MyLevel extends Level{
 			}
 			else if(kills >= .5)
 			{
+				rule = 3;
+				
 				if(deaths == 2) 
 				{
 					difficult = .25;
@@ -140,7 +142,6 @@ public class MyLevel extends Level{
 			{
 				//rule = 4;
 			}
-			rule = 3;
 			
 
 	        //create all of the medium sections
@@ -269,10 +270,6 @@ public class MyLevel extends Level{
 						}
 						totalSections += 1.0;
 						break;
-						//length += buildCannons(length, width-length);
-						//length += buildTubes(length, width-length);
-						//length += buildJump(length, width-length);
-						//length += buildHillStraight(length, width-length);
 					}
 				}
 	        }
