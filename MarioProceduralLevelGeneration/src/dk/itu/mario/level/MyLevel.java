@@ -94,7 +94,7 @@ public class MyLevel extends Level{
 			{
 				//rule = 4;
 			}
-			rule = 3;
+			rule = 1;
 
 	        //create all of the medium sections
 	        while (length < width - 64)
@@ -498,12 +498,6 @@ public class MyLevel extends Level{
 							tubeHeight = floor - random.nextInt(2) - 2;
 						}
 						if (xTube >= xo + length - 2) xTube += 10;
-						
-						if (x == xTube && random.nextInt(11) < difficulty + 1)
-						{
-							setSpriteTemplate(x, tubeHeight, new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
-							ENEMIES++;
-						}
 
 						for (int y = 0; y < height; y++)
 						{
@@ -578,6 +572,7 @@ public class MyLevel extends Level{
 							}
 						}
 					}
+					break;
 				}
 				default:
 				{

@@ -1,4 +1,50 @@
 StartTime = -17
-LittleState: StTime = -17 EdTime = 54
-Totaltime = 71
-Die:  EnemyType = BulletBill 
+Jump:  StTime = 34 EdTime = 47
+Jump:  StTime = 48 EdTime = 64
+RightMove: StTime = 5 EdTime = 59
+Jump:  StTime = 65 EdTime = 76
+Jump:  StTime = 80 EdTime = 97
+Jump:  StTime = 102 EdTime = 119
+Jump:  StTime = 121 EdTime = 137
+Jump:  StTime = 147 EdTime = 164
+CollectCoin:  time = 172
+RightMove: StTime = 68 EdTime = 166
+Jump:  StTime = 172 EdTime = 183
+Jump:  StTime = 197 EdTime = 215
+RightMove: StTime = 176 EdTime = 207
+Jump:  StTime = 217 EdTime = 229
+Jump:  StTime = 239 EdTime = 258
+RightMove: StTime = 221 EdTime = 244
+Jump:  StTime = 259 EdTime = 271
+RightMove: StTime = 264 EdTime = 251
+Jump:  StTime = 275 EdTime = 287
+RightMove: StTime = 279 EdTime = 261
+Jump:  StTime = 298 EdTime = 310
+Jump:  StTime = 318 EdTime = 333
+Jump:  StTime = 335 EdTime = 354
+RightMove: StTime = 302 EdTime = 314
+Jump:  StTime = 434 EdTime = 444
+RightMove: StTime = 438 EdTime = 326
+Jump:  StTime = 458 EdTime = 466
+Jump:  StTime = 470 EdTime = 482
+Jump:  StTime = 484 EdTime = 499
+RightMove: StTime = 463 EdTime = 378
+Jump:  StTime = 515 EdTime = 527
+RightMove: StTime = 520 EdTime = 391
+Jump:  StTime = 536 EdTime = 549
+Jump:  StTime = 550 EdTime = 559
+RightMove: StTime = 539 EdTime = 425
+Jump:  StTime = 571 EdTime = 587
+RightMove: StTime = 575 EdTime = 437
+Jump:  StTime = 591 EdTime = 604
+Jump:  StTime = 614 EdTime = 631
+RightMove: StTime = 595 EdTime = 489
+Jump:  StTime = 633 EdTime = 648
+Jump:  StTime = 649 EdTime = 665
+RightMove: StTime = 653 EdTime = 502
+Jump:  StTime = 667 EdTime = 679
+Jump:  StTime = 693 EdTime = 697
+Totaltime = 714
+RightMove: StTime = 671 EdTime = 528
+RunState: StTime = 14 EdTime = 697
+LittleState: StTime = -17 EdTime = 697
