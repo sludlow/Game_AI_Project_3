@@ -104,7 +104,7 @@ public class MyLevel extends Level{
 					bias = 1.0 / 3.0;
 				}
 			}
-			else if(jumps >= .5 && kills < .5) 
+			else if(jumps >= .5 && deaths < 3 && kills < .5) 
 			{
 				rule = 2;
 				
@@ -121,7 +121,7 @@ public class MyLevel extends Level{
 					difficult = .75;
 				}
 			}
-			else if(kills >= .5)
+			else if(kills >= .5 && deaths < 3 && jumps < .5)
 			{
 				rule = 3;
 				
@@ -138,9 +138,11 @@ public class MyLevel extends Level{
 					difficult = .75;
 				}
 			}
-			else if(jumps < .5)
+			else if(deaths < 3 || jumps < 5. || kills < .5)
 			{
+				rule = 3;
 				//rule = 4;
+				System.out.println("HI");
 			}
 			
 
@@ -269,6 +271,11 @@ public class MyLevel extends Level{
 							numHillStraights++;
 						}
 						totalSections += 1.0;
+						break;
+					}
+					case 4:
+					{
+						
 						break;
 					}
 				}
