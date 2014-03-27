@@ -80,12 +80,15 @@ public class MyLevel extends Level{
 			
 			double running = 1.0 * playerMetrics.timeSpentRunning / playerMetrics.totalTime;
 			
-			double difficult;
-			double bias;
+			double difficult = 0.25;
+			double bias = 1.0 / 3.0;
 			int numBlocks = 0;
 			int numTubes = 0;
 			int numStraights = 0;
 			int numHills = 0;
+			int numHillStraights = 0;
+			int numJumps = 0;
+			int numCannons = 0;
 			double totalSections = 1.0;
 			
 			if(deaths > 2)
@@ -126,46 +129,64 @@ public class MyLevel extends Level{
 			{
 				//rule = 4;
 			}
-<<<<<<< HEAD
-			rule = 1;
-=======
-			rule = 2;
+			rule = 3;
 			
->>>>>>> 4182b45af5a40d919bb3cb44d7b184ff7236e569
 
 	        //create all of the medium sections
 	        while (length < width - 64)
-	        {
-	            //length += buildZone(length, width - length);
-				
-				/*
-				
-				length += buildHillStraight(length, width-length);
-				length += buildJump(length, width-length);
-				length += buildTubes(length, width-length);
-				length += buildCannons(length, width-length);
-				*/
-				//length += buildJump(length, width-length);
-				//length += buildTubes(length, width-length);
-				
+	        {	
 				switch(rule)
 				{
 					case 1:
 					{
-						length += buildStraight(length, width-length, false);
-						length += buildHillStraight(length, width-length);
-						length += buildTubes(length, width-length);
+						int nextSection = random.nextInt(3);
+						int tieBreak = random.nextInt(2);
+						if(nextSection == 2 && ((numStraights / totalSections) < bias))
+						{
+							length += buildStraight(length, width-length, false);
+							numStraights++;
+						}
+						else if(nextSection == 2 && ((numStraights / totalSections) >= bias))
+						{
+							if(tieBreak == 0)
+							{
+								length += buildHillStraight(length, width-length);
+								numHills++;
+							}
+							else if(tieBreak == 1)
+							{
+								length += buildTubes(length, width-length);
+								numTubes++;
+							}
+						}
+						else if(nextSection == 0) 
+						{
+							length += buildHillStraight(length, width-length);
+							numHills++;
+						}
+						else if(nextSection == 1) 
+						{
+							length += buildTubes(length, width-length);
+							numTubes++;
+						}
+						else if(nextSection == 2) 
+						{
+							length += buildStraight(length, width-length, false);
+							numStraights++;
+						}
+						totalSections += 1.0;
+						
 						break;
 					}
 					case 2:
 					{
 						int nextSection = random.nextInt(2);
-						if(nextSection == 0 && ((numBlocks / totalSections) < difficulty))
+						if(nextSection == 0 && ((numBlocks / totalSections) < difficult))
 						{
 							length += buildBlockJumps(length, width-length);
 							numBlocks++;
 						}
-						else if(nextSection == 0 && ((numBlocks / totalSections) >= difficulty))
+						else if(nextSection == 0 && ((numBlocks / totalSections) >= difficult))
 						{
 							length += buildFreeStandingTubes(length, width-length);
 							numTubes++;
@@ -181,24 +202,15 @@ public class MyLevel extends Level{
 							numTubes++;
 						}
 						totalSections += 1.0;
-						//length += buildFreeStandingTubes(length, width-length);
-						//length += buildBlockJumps(length, width-length);
 						break;
 					}
 					case 3:
 					{
-						length += buildCannons(length, width-length);
-						length += buildHillStraight(length, width-length);
-						length += buildCannons(length, width-length);
-						length += buildJump(length, width-length);
-						length += buildCannons(length, width-length);
-						length += buildTubes(length, width-length);
-						length += buildCannons(length, width-length);
-						length += buildJump(length, width-length);
-						length += buildCannons(length, width-length);
-						length += buildTubes(length, width-length);
-						length += buildCannons(length, width-length);
 						break;
+						//length += buildCannons(length, width-length);
+						//length += buildTubes(length, width-length);
+						//length += buildJump(length, width-length);
+						//length += buildHillStraight(length, width-length);
 					}
 				}
 	        }
@@ -557,10 +569,7 @@ public class MyLevel extends Level{
 							tubeHeight = floor - random.nextInt(2) - 2;
 						}
 						if (xTube >= xo + length - 2) xTube += 10;
-<<<<<<< HEAD
-=======
 						
->>>>>>> 4182b45af5a40d919bb3cb44d7b184ff7236e569
 
 						for (int y = 0; y < height; y++)
 						{
