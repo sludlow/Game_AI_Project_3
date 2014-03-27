@@ -123,7 +123,18 @@ public class MyLevel extends Level{
 			}
 			else if(kills >= .5)
 			{
-				rule = 3;
+				if(deaths == 2) 
+				{
+					difficult = .25;
+				}
+				else if(deaths == 1) 
+				{
+					difficult = .5;
+				}
+				else if(deaths == 0) 
+				{
+					difficult = .75;
+				}
 			}
 			else if(jumps < .5)
 			{
@@ -206,6 +217,57 @@ public class MyLevel extends Level{
 					}
 					case 3:
 					{
+						int nextSection = random.nextInt(4);
+						int tieBreak = random.nextInt(3);
+						if(nextSection == 3 && ((numHillStraights / totalSections) < difficult))
+						{
+							length += buildHillStraight(length, width-length);
+							numHillStraights++;
+						}
+						else if(nextSection == 3 && ((numHillStraights / totalSections) >= difficult))
+						{
+							if(tieBreak == 0)
+							{
+								length += buildCannons(length, width-length);
+								numCannons++;
+							}
+							else if(tieBreak == 1)
+							{
+								length += buildTubes(length, width-length);
+								numTubes++;
+							}
+							else if(tieBreak == 2)
+							{
+								length += buildJump(length, width-length);
+								numJumps++;
+							}
+						}
+						else if(nextSection == 0) 
+						{
+							length += buildCannons(length, width-length);
+							numCannons++;
+						}
+						else if(nextSection == 1) 
+						{
+							length += buildTubes(length, width-length);
+							numTubes++;
+						}
+						else if(nextSection == 2) 
+						{
+							length += buildJump(length, width-length);
+							numJumps++;
+						}
+						else if(nextSection == 2) 
+						{
+							length += buildStraight(length, width-length, false);
+							numStraights++;
+						}
+						else if(nextSection == 3)
+						{
+							length += buildHillStraight(length, width-length);
+							numHillStraights++;
+						}
+						totalSections += 1.0;
 						break;
 						//length += buildCannons(length, width-length);
 						//length += buildTubes(length, width-length);
