@@ -104,7 +104,7 @@ public class MyLevel extends Level{
 					bias = 1.0 / 3.0;
 				}
 			}
-			else if(jumps >= .5 && kills < .5) 
+			else if(jumps >= .5 && deaths < 3 && kills < .5) 
 			{
 				rule = 2;
 				
@@ -121,15 +121,29 @@ public class MyLevel extends Level{
 					difficult = .75;
 				}
 			}
-			else if(kills >= .5)
+			else if(kills >= .5 && deaths < 3 && jumps < .5)
 			{
 				rule = 3;
+				
+				if(deaths == 2) 
+				{
+					difficult = .25;
+				}
+				else if(deaths == 1) 
+				{
+					difficult = .5;
+				}
+				else if(deaths == 0) 
+				{
+					difficult = .75;
+				}
 			}
-			else if(jumps < .5)
+			else if(deaths < 3 || jumps < 5. || kills < .5)
 			{
+				rule = 3;
 				//rule = 4;
+				System.out.println("HI");
 			}
-			rule = 3;
 			
 
 	        //create all of the medium sections
@@ -206,11 +220,63 @@ public class MyLevel extends Level{
 					}
 					case 3:
 					{
+						int nextSection = random.nextInt(4);
+						int tieBreak = random.nextInt(3);
+						if(nextSection == 3 && ((numHillStraights / totalSections) < difficult))
+						{
+							length += buildHillStraight(length, width-length);
+							numHillStraights++;
+						}
+						else if(nextSection == 3 && ((numHillStraights / totalSections) >= difficult))
+						{
+							if(tieBreak == 0)
+							{
+								length += buildCannons(length, width-length);
+								numCannons++;
+							}
+							else if(tieBreak == 1)
+							{
+								length += buildTubes(length, width-length);
+								numTubes++;
+							}
+							else if(tieBreak == 2)
+							{
+								length += buildJump(length, width-length);
+								numJumps++;
+							}
+						}
+						else if(nextSection == 0) 
+						{
+							length += buildCannons(length, width-length);
+							numCannons++;
+						}
+						else if(nextSection == 1) 
+						{
+							length += buildTubes(length, width-length);
+							numTubes++;
+						}
+						else if(nextSection == 2) 
+						{
+							length += buildJump(length, width-length);
+							numJumps++;
+						}
+						else if(nextSection == 2) 
+						{
+							length += buildStraight(length, width-length, false);
+							numStraights++;
+						}
+						else if(nextSection == 3)
+						{
+							length += buildHillStraight(length, width-length);
+							numHillStraights++;
+						}
+						totalSections += 1.0;
 						break;
-						//length += buildCannons(length, width-length);
-						//length += buildTubes(length, width-length);
-						//length += buildJump(length, width-length);
-						//length += buildHillStraight(length, width-length);
+					}
+					case 4:
+					{
+						
+						break;
 					}
 				}
 	        }
