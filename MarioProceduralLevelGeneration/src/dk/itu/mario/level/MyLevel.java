@@ -78,13 +78,45 @@ public class MyLevel extends Level{
 			
 			double jumps = 1.0 * playerMetrics.aimlessJumps / playerMetrics.jumpsNumber;
 			
+			double running = 1.0 * playerMetrics.timeSpentRunning / playerMetrics.totalTime;
+			
+			double difficult;
+			double bias;
+			int numBlocks = 0;
+			int numTubes = 0;
+			int numStraights = 0;
+			int numHills = 0;
+			double totalSections = 1.0;
+			
 			if(deaths > 2)
 			{
 				rule = 1;
+				
+				if(running > .5) 
+				{
+					bias = .6;
+				}
+				else if(running <= .5)
+				{
+					bias = 1.0 / 3.0;
+				}
 			}
 			else if(jumps >= .5 && kills < .5) 
 			{
 				rule = 2;
+				
+				if(deaths == 2) 
+				{
+					difficult = .25;
+				}
+				else if(deaths == 1) 
+				{
+					difficult = .5;
+				}
+				else if(deaths == 0) 
+				{
+					difficult = .75;
+				}
 			}
 			else if(kills >= .5)
 			{
@@ -94,7 +126,12 @@ public class MyLevel extends Level{
 			{
 				//rule = 4;
 			}
+<<<<<<< HEAD
 			rule = 1;
+=======
+			rule = 2;
+			
+>>>>>>> 4182b45af5a40d919bb3cb44d7b184ff7236e569
 
 	        //create all of the medium sections
 	        while (length < width - 64)
@@ -122,8 +159,30 @@ public class MyLevel extends Level{
 					}
 					case 2:
 					{
-						length += buildFreeStandingTubes(length, width-length);
-						length += buildBlockJumps(length, width-length);
+						int nextSection = random.nextInt(2);
+						if(nextSection == 0 && ((numBlocks / totalSections) < difficulty))
+						{
+							length += buildBlockJumps(length, width-length);
+							numBlocks++;
+						}
+						else if(nextSection == 0 && ((numBlocks / totalSections) >= difficulty))
+						{
+							length += buildFreeStandingTubes(length, width-length);
+							numTubes++;
+						}
+						else if(nextSection == 0)
+						{
+							length += buildBlockJumps(length, width-length);
+							numBlocks++;
+						}
+						else if(nextSection == 1)
+						{
+							length += buildFreeStandingTubes(length, width-length);
+							numTubes++;
+						}
+						totalSections += 1.0;
+						//length += buildFreeStandingTubes(length, width-length);
+						//length += buildBlockJumps(length, width-length);
 						break;
 					}
 					case 3:
@@ -498,6 +557,10 @@ public class MyLevel extends Level{
 							tubeHeight = floor - random.nextInt(2) - 2;
 						}
 						if (xTube >= xo + length - 2) xTube += 10;
+<<<<<<< HEAD
+=======
+						
+>>>>>>> 4182b45af5a40d919bb3cb44d7b184ff7236e569
 
 						for (int y = 0; y < height; y++)
 						{
@@ -544,6 +607,12 @@ public class MyLevel extends Level{
 							tubeHeight = floor - random.nextInt(2) - 2;
 						}
 						if (xTube >= xo + length - 2) xTube += 10;
+						
+						if (x == xTube && random.nextInt(11) < difficulty + 1)
+						{
+							setSpriteTemplate(x, tubeHeight, new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
+							ENEMIES++;
+						}
 
 						for (int y = 0; y < height; y++)
 						{
@@ -590,6 +659,12 @@ public class MyLevel extends Level{
 							tubeHeight = floor - random.nextInt(2) - 2;
 						}
 						if (xTube >= xo + length - 2) xTube += 10;
+						
+						if (x == xTube && random.nextInt(11) < difficulty + 1)
+						{
+							setSpriteTemplate(x, tubeHeight, new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
+							ENEMIES++;
+						}
 
 						for (int y = 0; y < height; y++)
 						{
