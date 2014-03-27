@@ -104,24 +104,7 @@ public class MyLevel extends Level{
 					bias = 1.0 / 3.0;
 				}
 			}
-			else if(jumps >= .5 && deaths < 3 && kills < .5) 
-			{
-				rule = 2;
-				
-				if(deaths == 2) 
-				{
-					difficult = .25;
-				}
-				else if(deaths == 1) 
-				{
-					difficult = .5;
-				}
-				else if(deaths == 0) 
-				{
-					difficult = .75;
-				}
-			}
-			else if(kills >= .5 && deaths < 3 && jumps < .5)
+			else if(kills >= .8 && jumps < .8)
 			{
 				rule = 3;
 				
@@ -138,7 +121,24 @@ public class MyLevel extends Level{
 					difficult = .75;
 				}
 			}
-			else if(deaths < 3 || jumps < 5. || kills < .5)
+			else if(jumps >= .8 && kills < .8) 
+			{
+				rule = 2;
+				
+				if(deaths == 2) 
+				{
+					difficult = .25;
+				}
+				else if(deaths == 1) 
+				{
+					difficult = .5;
+				}
+				else if(deaths == 0) 
+				{
+					difficult = .75;
+				}
+			}
+			else if(jumps < .8 && kills < .8)
 			{
 				rule = 3;
 				//rule = 4;
