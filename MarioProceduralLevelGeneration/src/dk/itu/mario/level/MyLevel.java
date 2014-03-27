@@ -74,9 +74,9 @@ public class MyLevel extends Level{
 			kills += playerMetrics.CannonBallKilled;
 			kills += playerMetrics.JumpFlowersKilled;
 			kills += playerMetrics.ChompFlowersKilled;
-			kills = kills / playerMetrics.totalEnemies;
+			kills = 1.0 * kills / playerMetrics.totalEnemies;
 			
-			double jumps = 1.0 * (playerMetrics.aimlessJumps / playerMetrics.jumpsNumber);
+			double jumps = 1.0 * playerMetrics.aimlessJumps / playerMetrics.jumpsNumber;
 			
 			if(deaths > 2)
 			{
