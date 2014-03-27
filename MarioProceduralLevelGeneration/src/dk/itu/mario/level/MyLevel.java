@@ -66,6 +66,8 @@ public class MyLevel extends Level{
 			deaths += playerMetrics.timesOfDeathByChompFlower;
 			deaths += playerMetrics.timesOfDeathByFallingIntoGap;
 			
+			System.out.println("deaths = " + deaths);
+			
 			double kills = playerMetrics.RedTurtlesKilled;
 			kills += playerMetrics.RedTurtlesKilled;
 			kills += playerMetrics.GreenTurtlesKilled;
@@ -75,6 +77,8 @@ public class MyLevel extends Level{
 			kills += playerMetrics.JumpFlowersKilled;
 			kills += playerMetrics.ChompFlowersKilled;
 			kills = 1.0 * kills / playerMetrics.totalEnemies;
+			
+			int total_weight = 1;
 			
 			double jumps = 1.0 * playerMetrics.aimlessJumps / playerMetrics.jumpsNumber;
 			
@@ -90,6 +94,7 @@ public class MyLevel extends Level{
 			int numJumps = 0;
 			int numCannons = 0;
 			double totalSections = 1.0;
+			boolean flag = false;
 			
 			if(deaths > 2)
 			{
@@ -137,18 +142,71 @@ public class MyLevel extends Level{
 				{
 					difficult = .75;
 				}
+				System.out.println("jumper");
 			}
-			else if(jumps < .8 && kills < .8)
+			else
 			{
-				rule = 3;
-				//rule = 4;
-				System.out.println("HI");
+				deaths *= 33;
+				jumps *= 100;
+				kills *= 100;
+				total_weight = (int)deaths + (int)jumps + (int)kills;
+				
+				flag = true; 
 			}
 			
 
 	        //create all of the medium sections
 	        while (length < width - 64)
 	        {	
+				if(flag)
+				{
+					int which_part = random.nextInt(total_weight);
+					if(which_part < (int)deaths)
+					{
+						if(running > .5) 
+						{
+							bias = .6;
+						}
+						else if(running <= .5)
+						{
+							bias = 1.0 / 3.0;
+						}
+						rule = 1;
+					}
+					else if(which_part >= total_weight - (int)jumps)
+					{
+						if(deaths == 2) 
+						{
+							difficult = .25;
+						}
+						else if(deaths == 1) 
+						{
+							difficult = .5;
+						}
+						else if(deaths == 0) 
+						{
+							difficult = .75;
+						}
+						rule = 3;
+					}
+					else
+					{
+						if(deaths == 2) 
+						{
+							difficult = .25;
+						}
+						else if(deaths == 1) 
+						{
+							difficult = .5;
+						}
+						else if(deaths == 0) 
+						{
+							difficult = .75;
+						}
+						rule = 2;
+					}
+				}
+				
 				switch(rule)
 				{
 					case 1:
