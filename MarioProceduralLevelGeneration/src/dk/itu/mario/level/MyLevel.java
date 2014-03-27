@@ -64,16 +64,35 @@ public class MyLevel extends Level{
 			deaths += playerMetrics.timesOfDeathByJumpFlower;
 			deaths += playerMetrics.timesOfDeathByCannonBall;
 			deaths += playerMetrics.timesOfDeathByChompFlower;
+			deaths += playerMetrics.timesOfDeathByFallingIntoGap;
+			
+			double kills = playerMetrics.RedTurtlesKilled;
+			kills += playerMetrics.RedTurtlesKilled;
+			kills += playerMetrics.GreenTurtlesKilled;
+			kills += playerMetrics.ArmoredTurtlesKilled;
+			kills += playerMetrics.GoombasKilled;
+			kills += playerMetrics.CannonBallKilled;
+			kills += playerMetrics.JumpFlowersKilled;
+			kills += playerMetrics.ChompFlowersKilled;
+			kills = kills / playerMetrics.totalEnemies;
 			
 			double jumps = 1.0 * (playerMetrics.aimlessJumps / playerMetrics.jumpsNumber);
 			
-			if(deaths > 1 && jumps < .5)
+			if(deaths > 2)
 			{
 				rule = 1;
 			}
-			else if(jumps >= .5) 
+			else if(jumps >= .5 && kills < .5) 
 			{
 				rule = 2;
+			}
+			else if(kills >= .5)
+			{
+				rule = 3;
+			}
+			else if(jumps < .5)
+			{
+				//rule = 4;
 			}
 
 	        //create all of the medium sections
@@ -106,7 +125,7 @@ public class MyLevel extends Level{
 						length += buildBlockJumps(length, width-length);
 						break;
 					}
-					default:
+					case 3:
 					{
 						length += buildCannons(length, width-length);
 						length += buildHillStraight(length, width-length);
@@ -119,6 +138,7 @@ public class MyLevel extends Level{
 						length += buildCannons(length, width-length);
 						length += buildTubes(length, width-length);
 						length += buildCannons(length, width-length);
+						break;
 					}
 				}
 	        }
@@ -411,7 +431,7 @@ public class MyLevel extends Level{
 			//int length = random.nextInt(20);
 	        if (length > maxLength) length = maxLength;
 
-	        int floor = height - 1 - random.nextInt(4);
+	        int floor = height - 1 - random.nextInt(3);
 	        //int xTube = xo + 1 + random.nextInt(4);
 			int xTube = xo + 1;
 	        int tubeHeight = floor - random.nextInt(2) - 1; // -2
