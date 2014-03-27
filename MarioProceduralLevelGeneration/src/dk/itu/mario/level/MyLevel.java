@@ -27,7 +27,7 @@ public class MyLevel extends Level{
 	    private int difficulty;
 	    private int type;
 		private int gaps;
-		int rule = 1;
+		int rule = 2;
 		GamePlay playerMetrics;
 		
 		public MyLevel(int width, int height)
@@ -94,6 +94,7 @@ public class MyLevel extends Level{
 			{
 				//rule = 4;
 			}
+			rule = 3;
 
 	        //create all of the medium sections
 	        while (length < width - 64)
@@ -377,15 +378,18 @@ public class MyLevel extends Level{
 					}
 					default:
 					{
-						if (random.nextInt(35) < difficulty + 1)
+						if (random.nextInt(35) < 20)
 						{
 							int type = random.nextInt(4);
-								type = random.nextInt(3);
-							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
-							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
-							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
-							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
-							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
+							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(10) < 3));
+							type = random.nextInt(4);
+							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(10) < 3));				
+							type = random.nextInt(4);
+							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(10) < 3));
+							type = random.nextInt(4);
+							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(10) < 3));
+							type = random.nextInt(4);
+							setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(10) < 3));
 							ENEMIES++;
 						}
 					}

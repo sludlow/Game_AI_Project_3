@@ -1,9 +1,4 @@
 StartTime = -17
-RightMove: StTime = 13 EdTime = 24
-Jump:  StTime = 22 EdTime = 38
-Jump:  StTime = 42 EdTime = 54
-RunState: StTime = 10 EdTime = 65
-LittleState: StTime = -17 EdTime = 65
-Totaltime = 82
-Jump:  StTime = 64 EdTime = 65
-Die:  EnemyType = 0
+LittleState: StTime = -17 EdTime = 54
+Totaltime = 71
+Die:  EnemyType = BulletBill 
